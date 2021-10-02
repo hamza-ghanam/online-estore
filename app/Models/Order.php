@@ -23,6 +23,8 @@ class Order extends Model
     public function products()
     {
         return $this->belongsToMany(Product::class, 'order_item')
-            ->withPivot('quantity', 'unitPrice');
+            ->withPivot('quantity', 'unitPrice', 'deleted_at')
+            ->wherePivot('deleted_at', null)
+            ->withTimestamps();
     }
 }
